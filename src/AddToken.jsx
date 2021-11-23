@@ -1,34 +1,27 @@
 import React, { Component } from 'react';
 import detectEthereumProvider from '@metamask/detect-provider'
 import SwitchNetworkNotice from './SwitchNetworkNotice'
-import Button from '@material-ui/core/Button';
-import Table from '@material-ui/core/Table';
-import TableBody from '@material-ui/core/TableBody';
-import TableRow from '@material-ui/core/TableRow';
-import TableCell from '@material-ui/core/TableCell';
-import Typography from '@material-ui/core/Typography';
 import DownloadMetaMaskButton from './DownloadMetaMaskButton';
 import Eth from 'ethjs-query';
-import etherscanLink from 'etherscan-link';
-import { Link } from 'react-router-dom'
-import logo from './coin.jpg';
+import logo from './logo.png';
 import queryString from 'querystringify'
+import { Avatar } from '@material-ui/core';
 
-const metaMarkAddress = '0x617b3f8050a0bd94b6b1da02b4384ee5b4df13f4';
+const metaMarkAddress = '0x1b2f67679798c764f2c0c69dfb6bda8b30a094cf';
 
-class AddTokenPanel extends Component {
+class AddToken extends Component {
 
   constructor(props) {
     const {
-      tokenName = 'MetaMarks',
-      tokenSymbol = 'MARK',
+      tokenName = 'NFT Royal Token',
+      tokenSymbol = 'NRT',
       tokenDecimals = 18,
       tokenAddress = metaMarkAddress,
-      tokenImage = 'https://pbs.twimg.com/profile_images/802481220340908032/M_vde_oi_400x400.jpg',
-      tokenNet = '1',
+      tokenImage = 'https://www.nftroyaltoken.com/images/logo/logo.png',
+      tokenNet = '56',
       message = '',
       errorMessage = '',
-      net = '1',
+      net = '56',
     } = props
 
     super()
@@ -69,7 +62,6 @@ class AddTokenPanel extends Component {
 
   render(props, context) {
     const {
-      tokenName,
       tokenSymbol,
       tokenDecimals,
       tokenNet,
@@ -93,34 +85,9 @@ class AddTokenPanel extends Component {
     }
 
     return (
-      <div className="values">
-        <header className="App-header">
-          <img src={tokenImage || logo} className="logo" alt="Coin" />
-          <h1 className="App-title">Watch {tokenName}</h1>
-        </header>
-        <Table>
-          <TableBody>
-            <TableRow>
-              <TableCell>Symbol</TableCell>
-              <TableCell>{tokenSymbol}</TableCell>
-            </TableRow>
-            <TableRow>
-              <TableCell>Decimals</TableCell>
-              <TableCell>{tokenDecimals}</TableCell>
-            </TableRow>
-          </TableBody>
-        </Table>
-
         <div>
-          <Button
-            onClick={() => {
-              const { tokenAddress, net } = this.state
-              window.location.href = etherscanLink.createAccountLink(tokenAddress, net)
-            }}
-            href={etherscanLink.createAccountLink(tokenAddress, net)}
-          >View on Etherscan</Button>
-
-          <Button
+          <Avatar
+            src={logo}
             onClick={async (event) => {
               const provider = await detectEthereumProvider()
               provider.sendAsync({
@@ -150,30 +117,15 @@ class AddTokenPanel extends Component {
                 })
               })
             }}
-          >Watch in Wallet</Button>
-
-        </div>
+          />
 
         <p>{message}</p>
         {error}
-
-        <div className="spacer"></div>
-
-        <Typography gutterBottom noWrap>
-          {`
-            Create a simple page to watch your token with one click.
-          `}
-        </Typography>
-        <Link to="/edit">
-          <Button>
-            Create Page
-          </Button>
-        </Link>
 
       </div>
     )
   }
 }
 
-export default AddTokenPanel;
+export default AddToken;
 
