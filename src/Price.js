@@ -13,8 +13,8 @@ const Value = () => {
             try {
                 const response = await fetch(url);
                 const json = await response.json();
-                console.log(json.data.price);
-                console.log(json.data.price_BNB);
+                // console.log(json.data.price);
+                // console.log(json.data.price_BNB);
                 setPrice(json.data.price);
                 setBinance(json.data.price_BNB);
             } catch (error) {
