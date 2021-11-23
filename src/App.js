@@ -1,22 +1,22 @@
 import detectEthereumProvider from '@metamask/detect-provider';
 import React, { useState } from 'react';
 import { BrowserRouter, HashRouter, Route, Switch } from 'react-router-dom';
-import AddTokenPanel from './AddTokenPanel';
+import AddToken from './AddToken';
+import Value from './Price';
 import './App.css';
 import DownloadMetaMaskButton from './DownloadMetaMaskButton';
-import EditTokenPanel from './EditTokenPanel';
 import loadingSvg from './loading.svg';
 
-
 const MainContent = () => {
+
   return (
     <div>
+      <Value />
       <BrowserRouter basename={process.env.PUBLIC_URL}>
         <HashRouter hashType="noslash">
           <Switch>
-            <Route path="/edit" component={EditTokenPanel} />
-            <Route path="/add" component={AddTokenPanel} />
-            <Route path="/" component={AddTokenPanel} />
+            <Route path="/add" component={AddToken} />
+            <Route path="/" component={AddToken} />
           </Switch>
         </HashRouter>
       </BrowserRouter>
@@ -51,7 +51,6 @@ const App = () => {
     <div className="App">
       {isLoading ? <div><div><img className="loading-spinner" src={loadingSvg} /><h2>Loading.....</h2></div></div>
         : <div>
-          <a className="github-banner" href="https://github.com/MetaMask/Add-Token"><img src="https://s3.amazonaws.com/github/ribbons/forkme_right_gray_6d6d6d.png" alt="Fork me on GitHub" /></a>
 
           {isProviderLoaded ? <MainContent /> : <ErrorContent />}
 
